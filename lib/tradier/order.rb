@@ -6,7 +6,7 @@ module Tradier
     :status, :time_in_force, :option_type, :exec_inst, :exec_status, :extended_hours, \
     :trailing_limit_type, :trailing_stop_type, :request_date, :response_date, :num_legs, \
     :errors, :result, :stop_price, :duration, :avg_fill_price, :exec_quantity, :last_fill_price, \
-    :remaining_quantity, :create_date, :transaction_date, :strategy, :option_symbol
+     :last_fill_quantity, :remaining_quantity, :create_date, :transaction_date, :strategy, :option_symbol
 
     class Leg < Tradier::Base
       attr_reader :id, :type, :symbol, :side, :quantity, :status, :duration, :price, \
@@ -27,7 +27,7 @@ module Tradier
     end
 
     def legs
-      attrs[:leg]&.map { |l| Leg.new(l) }
+      Array(attrs[:leg]).map { |l| Leg.new(l) }
     end
   end
 end
